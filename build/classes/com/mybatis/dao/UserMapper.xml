@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 声明sql语句 -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace：对应的是一个接口UserMapper，关联xml文件 -->
+<mapper namespace="com.mybatis.dao.UserMapper">
+	<select id="getUsersByKey" resultType="User">
+		select * from s_user
+		<trim prefix="where" suffixOverrides="and">
+			<if test="user.uid != null and user.uid != 0 ">
+				uid = #{user.uid} and
+			</if>
+			<if test="user.uname != null and  user.uname != ''">
+				uname like concat('%',#{user.uname},'%')
+			</if>
+		</trim>
+	</select>
+</mapper>
